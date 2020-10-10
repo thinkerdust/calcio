@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comfortaa', cursive;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+/* Color Pallete 
+    ffdbc5
+    cf1b1b
+    900d0d
+    423144
+    f1f3de
+    eb8f8f
+    ec0101
+    cd0a0a
+*/
+nav {
+    background-color: #cd0a0a;
+}
+
+.footer-copyright {
+    background: #cd0a0a;
+    padding: 26px 0;
+    color: #fff;
+    font-size: 15px;
+}
