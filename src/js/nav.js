@@ -1,3 +1,9 @@
+import main from './main';
+import api from './api';
+import goal from '../img/goal.png';
+import bgMatch from '../img/bg-2.jpg';
+import bgTeam from '../img/bg-4.jpg';
+
 document.addEventListener('DOMContentLoaded', function(){
 
 	// SIDEBAR NAVIGATION
@@ -39,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	
 	// Load page content
 	let page = window.location.hash.substr(1);
-	if(page == '') page = 'home';
+	if(page === '') page = 'home';
 	loadPage(page);
 
 	function loadPage(page)
@@ -50,6 +56,24 @@ document.addEventListener('DOMContentLoaded', function(){
 				let content = document.querySelector("#body-content");
 				if(this.status === 200) {
 				content.innerHTML = xhttp.responseText;
+					if(page === 'home') {
+						main.imgCarousel();
+						main.initCarousell();
+						api.topScore();
+						api.getStanding();
+						document.querySelector('#goal').src = goal;
+					} else if (page === 'team') {
+						api.getTeam();
+						main.initParallax();
+						document.querySelector('#bg-team').src = bgTeam;
+					} else if (page === 'competition') {
+						api.getMatchOfMonth();
+						main.initCollapsible();
+						main.initParallax();
+						document.querySelector('#bg-match').src = bgMatch;
+					} else if (page === 'saved') {
+
+					}
 				} else if(this.status === 404) {
 					content.innerHTML = "<p>Halaman tidak ditemukan.</p>";
 				} else {

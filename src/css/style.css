@@ -12,21 +12,54 @@ body {
 }
 
 /* Color Pallete 
-    ffdbc5
-    cf1b1b
-    900d0d
-    423144
-    f1f3de
-    eb8f8f
-    ec0101
-    cd0a0a
+    0f3057
+    00587a
+    008891
+    0278ae
+    51adcf
+    7579e7
+    070d59
 */
 nav {
-    background-color: #cd0a0a;
+    background-color: #0278ae;
+}
+
+.brand-name {
+    color: #0278ae;
+}
+
+#cards-team .card-image {
+    height: 300px;
+    /* overflow: hidden; */
+}
+
+#cards-team img {
+    max-height: 300px;
+}
+
+#cards-team .card {
+    height: 630px;
+}
+
+.btn-floating {
+    background-color: #0278ae;
+}
+
+.btn-floating:hover {
+    background-color: #070d59;
+}
+
+.progress {
+    background-color: darkblue;
+}
+
+
+.progress .indeterminate {
+    background-color: steelblue;
 }
 
 .footer-copyright {
-    background: #cd0a0a;
+    background: #0278ae;
     padding: 26px 0;
     color: #fff;
     font-size: 15px;

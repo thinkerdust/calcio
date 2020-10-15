@@ -1,0 +1,23 @@
+{
+    "name": "Calcio",
+    "short_name": "Calcio",
+    "description": "Football Premier League App",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#0278ae",
+    "theme_color": "#0278ae",
+    "icons": [
+        {
+            "src": "/src/img/icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/src/img/apple-touch-icon.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
