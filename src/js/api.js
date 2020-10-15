@@ -9,16 +9,16 @@ const fetchApi = url => {
     return fetch(url, {
         method: "get",
         headers: {
-            'X-Auth-Token' :token
+            'X-Auth-Token': token
         }
     })
-    .then(status)
-    .then(json)
-    .catch(error);
+        .then(status)
+        .then(json)
+        .catch(error);
 };
 
 function status(response) {
-    if(response.status !== 200) {
+    if (response.status !== 200) {
         console.log('Error :' + response.status);
         return Promise.reject(new Error(response.statusText));
     } else {
@@ -34,6 +34,13 @@ function error(error) {
     console.log('Error : ' + error);
 }
 
+function addListener(data) {
+    const element = document.getElementById(data.id);
+    element.addEventListener('click', () => {
+        console.log(`Datanya mau diapain? : ${data.name}`)
+    })
+}
+
 export default class api {
     static topScore() {
         const tbTopS = document.querySelector('#top-scorer');
@@ -41,10 +48,10 @@ export default class api {
                                 <div class="indeterminate"></div>
                             </div>`;
         tbTopS.innerHTML = preLoader;
-        fetchApi(base_url+'competitions/PL/scorers')
-        .then((data) => {
-            const { scorers } = data;
-            let result = `<thead>
+        fetchApi(base_url + 'competitions/PL/scorers')
+            .then((data) => {
+                const { scorers } = data;
+                let result = `<thead>
                             <tr>
                                 <th>No</th>
                                 <th>Player</th>
@@ -56,21 +63,21 @@ export default class api {
                         <tbody>
                     
                         </tbody>`;
-            
-            scorers.forEach((top,index) => {
-                // console.log(top);
-                result += 
-                `<tr>
-                    <td>`+ (index+1) +`</td>
-                    <td>`+ (top['player']['name']) +`</td>
-                    <td>`+ (top['team']['name']) +`</td>
-                    <td>`+ (top['numberOfGoals']) +`</td>
+
+                scorers.forEach((top, index) => {
+                    // console.log(top);
+                    result +=
+                        `<tr>
+                    <td>`+ (index + 1) + `</td>
+                    <td>`+ (top['player']['name']) + `</td>
+                    <td>`+ (top['team']['name']) + `</td>
+                    <td>`+ (top['numberOfGoals']) + `</td>
                 </tr>`;
+                })
+                tbTopS.innerHTML = result;
             })
-            tbTopS.innerHTML = result;
-        })
     }
-    
+
     static getStanding() {
         const tbStand = document.querySelector('#tb-standings');
         const preLoader = `<div class="progress">
@@ -78,9 +85,9 @@ export default class api {
                             </div>`;
         tbStand.innerHTML = preLoader;
         fetchApi(standing_url)
-        .then((data) => {
-            const { standings: [{table: clubs}] } = data;
-            let result = `<thead>
+            .then((data) => {
+                const { standings: [{ table: clubs }] } = data;
+                let result = `<thead>
                             <tr>
                                 <th>Position</th>
                                 <th>Club</th>
@@ -99,23 +106,23 @@ export default class api {
                     
                         </tbody>`;
 
-            clubs.forEach(items => {
-                result += 
-                `<tr>
-                    <td>`+ (items['position']) +`</td>
-                    <td>`+ (items['team']['name']) +`</td>
-                    <td>`+ (items['playedGames']) +`</td>
-                    <td>`+ (items['won']) +`</td>
-                    <td>`+ (items['draw']) +`</td>
-                    <td>`+ (items['lost']) +`</td>
-                    <td>`+ (items['goalsFor']) +`</td>
-                    <td>`+ (items['goalsAgainst']) +`</td>
-                    <td>`+ (items['goalDifference']) +`</td>
-                    <td>`+ (items['points']) +`</td>
+                clubs.forEach(items => {
+                    result +=
+                        `<tr>
+                    <td>`+ (items['position']) + `</td>
+                    <td>`+ (items['team']['name']) + `</td>
+                    <td>`+ (items['playedGames']) + `</td>
+                    <td>`+ (items['won']) + `</td>
+                    <td>`+ (items['draw']) + `</td>
+                    <td>`+ (items['lost']) + `</td>
+                    <td>`+ (items['goalsFor']) + `</td>
+                    <td>`+ (items['goalsAgainst']) + `</td>
+                    <td>`+ (items['goalDifference']) + `</td>
+                    <td>`+ (items['points']) + `</td>
                 </tr>`;
+                })
+                tbStand.innerHTML = result;
             })
-            tbStand.innerHTML = result;
-        })
     }
 
     static getTeam() {
@@ -125,38 +132,37 @@ export default class api {
                             </div>`;
         card.innerHTML = preLoader;
         fetchApi(team_url)
-        .then((data) => {
-            const { teams } = data;
-            let result = '';
+            .then((data) => {
+                const { teams } = data;
+                let result = '';
 
-            teams.forEach((items) => {
-                result += 
-                `<div class="col s12 m4 l4">
+                teams.forEach((items) => {
+                    result +=
+                        `<div class="col s12 m4 l4">
                     <div class="card hoverable">
                         <div class="card-image">
-                            <img src="`+(items.crestUrl)+`" alt="gambar" class="responsive-img">
-                            <a class="btn-floating halfway-fab waves-effect waves-light" id="(`+items.id+`)"><i class="material-icons">add</i></a>
+                            <img src="`+ (items.crestUrl) + `" alt="gambar" class="responsive-img">
+                            <a class="btn-floating halfway-fab waves-effect waves-light" id="${items.id}">
+                            <i class="material-icons">add</i></a>
                         </div>
                         <div class="card-content">
-                            <span class="card-title brand-name center-align">`+(items.name)+`</span>
+                            <span class="card-title brand-name center-align">`+ (items.name) + `</span>
                             <h6>Address</h6>
-                            <p>`+(items.address)+`</p>
+                            <p>`+ (items.address) + `</p>
                             <h6>Founded</h6>
-                            <p>`+(items.founded)+`</p>
+                            <p>`+ (items.founded) + `</p>
                             <h6>Venue</h6>
-                            <p>`+(items.venue)+`</p>
-                            <a href="`+(items.website)+`">Link Website</a>
+                            <p>`+ (items.venue) + `</p>
+                            <a href="`+ (items.website) + `">Link Website</a>
                         </div>
                     </div>
-                </div>`;           
+                </div>`;
+                })
+                card.innerHTML = result;
+                teams.forEach((items) => {
+                    addListener(items)
+                })
             })
-            card.innerHTML = result;
-            // teams.forEach((items) => {
-            //     document.getElementById(items.id).addEventListener('click', () => {
-            //         console.log(items.name);
-            //     })
-            // })
-        })
     }
 
     static getMatchOfMonth() {
@@ -170,25 +176,25 @@ export default class api {
                                 <div class="indeterminate"></div>
                             </div>`;
         collaps.innerHTML = preLoader;
-        fetchApi(match_url+'/?status=SCHEDULED&dateFrom='+firstDay+'&dateTo='+lastDay)
-        .then((data) => {
-            const { matches } = data;
-            let result = '';
+        fetchApi(match_url + '/?status=SCHEDULED&dateFrom=' + firstDay + '&dateTo=' + lastDay)
+            .then((data) => {
+                const { matches } = data;
+                let result = '';
 
-            matches.forEach((items) => {
-                const utc = new Date(items['utcDate']);
-                let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-                const date = utc.toLocaleDateString('en-US', options);
-                result += 
-                `<li>
-                    <div class="collapsible-header brand-name"><i class="material-icons">sports_soccer</i>`+ (items['awayTeam']['name']) +` VS `+ (items['homeTeam']['name']) +`</div>
+                matches.forEach((items) => {
+                    const utc = new Date(items['utcDate']);
+                    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+                    const date = utc.toLocaleDateString('en-US', options);
+                    result +=
+                        `<li>
+                    <div class="collapsible-header brand-name"><i class="material-icons">sports_soccer</i>`+ (items['awayTeam']['name']) + ` VS ` + (items['homeTeam']['name']) + `</div>
                     <div class="collapsible-body">
-                        <p class="flow-text"> Macthday `+(items['matchday'])+`</p>
-                        <p class="flow-text"> Scheduled `+(date)+`</p>
+                        <p class="flow-text"> Macthday `+ (items['matchday']) + `</p>
+                        <p class="flow-text"> Scheduled `+ (date) + `</p>
                     </div>
                 </li>`;
+                })
+                collaps.innerHTML = result;
             })
-            collaps.innerHTML = result;
-        })
     }
 }
