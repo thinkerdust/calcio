@@ -43,7 +43,8 @@ function error(error) {
 function addListener(data) {
     const element = document.getElementById(data.id);
     element.addEventListener('click', () => {
-        saveForLater(data);
+        saveForLater(data)
+        element.style.display = 'none'
     })
 }
 
@@ -176,6 +177,12 @@ export default class api {
                 teams.forEach((items) => {
                     addListener(items)
                 })
+                // cek saved Team
+                getAll().then(data => {
+                    data.forEach(items => {
+                        document.getElementById(items.id).style.display = 'none'
+                    })
+                })
             })
     }
 
@@ -221,17 +228,23 @@ export default class api {
 
     static getSavedTeam() {
         getAll().then((data) => {
-            let html ='';
-            data.forEach(items => {
-                html += `<p>Ini team ${items.name}</p> 
-                <span id="${items.id}">Delete Team ?</span>`
-            })
-            document.getElementById('savedTeamList').innerHTML = html
-            data.forEach(items => {
-                document.getElementById(items.id).addEventListener('click', () => {
-                    deleteById(items.id);
+            let html = '';
+            if (data.length === 0) {
+                html = 'Tidak ada team tersimpan';
+            } else {
+                data.forEach(items => {
+                    html += `<p>Ini team ${items.name}</p> 
+                    <span id="${items.id}">Delete Team ?</span>`
                 })
-            })
+            }
+            document.getElementById('savedTeamList').innerHTML = html;
+            if (data.length > 0) {
+                data.forEach(items => {
+                    document.getElementById(items.id).addEventListener('click', () => {
+                        deleteById(items.id);
+                    })
+                })
+            }
         })
     }
 }
