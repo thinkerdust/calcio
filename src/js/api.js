@@ -241,7 +241,8 @@ export default class api {
             if (data.length > 0) {
                 data.forEach(items => {
                     document.getElementById(items.id).addEventListener('click', () => {
-                        deleteById(items.id);
+                        deleteById(items.id)
+                        this.getSavedTeam()
                     })
                 })
             }

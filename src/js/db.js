@@ -1,5 +1,4 @@
 import idb from 'idb/lib/idb';
-import api from './api';
 
 let dbPromised = idb.open("team-details", 1, function (upgradeDb) {
   let teamsObjectStore = upgradeDb.createObjectStore("teams", {
@@ -59,7 +58,6 @@ function deleteById(id) {
     return tx.complete;
   }).then(function () {
     console.log('item deleted');
-    api.getSavedTeam();
   })
 }
 
