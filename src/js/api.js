@@ -1,3 +1,6 @@
+import { tambah, show, destroy } from './db';
+import Swal from 'sweetalert2';
+
 const base_url = 'https://api.football-data.org/v2/';
 const token = 'd9597e3d5e424937a5050d5c9ff30314';
 const id_liga = '2021';
@@ -34,6 +37,24 @@ function error(error) {
     console.log('Error : ' + error);
 }
 
+function savedTeam(data) {
+    const btn = document.getElementById(data.id);
+    btn.addEventListener('click', () => {
+        console.log(`Simpan data : ${data.name}`);
+        // console.log(data);
+        Swal.fire({
+            text: 'Tambahkan Ke Daftar Favorit ?',
+            icon: 'question',
+            showCancelButton: true,
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  tambah(data);
+                  Swal.fire('Saved!', '', 'success');
+              }
+          })
+    })
+}
+
 export default class api {
     static topScore() {
         const tbTopS = document.querySelector('#top-scorer');
@@ -61,10 +82,10 @@ export default class api {
                 // console.log(top);
                 result += 
                 `<tr>
-                    <td>`+ (index+1) +`</td>
-                    <td>`+ (top['player']['name']) +`</td>
-                    <td>`+ (top['team']['name']) +`</td>
-                    <td>`+ (top['numberOfGoals']) +`</td>
+                    <td> ${index+1} </td>
+                    <td> ${top['player']['name']}</td>
+                    <td> ${top['team']['name']} </td>
+                    <td> ${top['numberOfGoals']} </td>
                 </tr>`;
             })
             tbTopS.innerHTML = result;
@@ -134,28 +155,26 @@ export default class api {
                 `<div class="col s12 m4 l4">
                     <div class="card hoverable">
                         <div class="card-image">
-                            <img src="`+(items.crestUrl)+`" alt="gambar" class="responsive-img">
-                            <a class="btn-floating halfway-fab waves-effect waves-light" id="(`+items.id+`)"><i class="material-icons">add</i></a>
+                            <img src="${items.crestUrl}" alt="gambar" class="responsive-img">
+                            <a class="btn-floating halfway-fab waves-effect waves-light" id="${items.id}"><i class="material-icons">add</i></a>
                         </div>
                         <div class="card-content">
-                            <span class="card-title brand-name center-align">`+(items.name)+`</span>
+                            <span class="card-title brand-name center-align"> ${items.name} </span>
                             <h6>Address</h6>
-                            <p>`+(items.address)+`</p>
+                            <p> ${items.address} </p>
                             <h6>Founded</h6>
-                            <p>`+(items.founded)+`</p>
+                            <p> ${items.founded} </p>
                             <h6>Venue</h6>
-                            <p>`+(items.venue)+`</p>
-                            <a href="`+(items.website)+`">Link Website</a>
+                            <p> ${items.venue} </p>
+                            <a href="${items.website}">Link Website</a>
                         </div>
                     </div>
                 </div>`;           
             })
             card.innerHTML = result;
-            // teams.forEach((items) => {
-            //     document.getElementById(items.id).addEventListener('click', () => {
-            //         console.log(items.name);
-            //     })
-            // })
+            teams.forEach((items) => {
+                savedTeam(items);
+            })
         })
     }
 
