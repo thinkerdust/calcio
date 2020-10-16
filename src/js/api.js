@@ -1,3 +1,9 @@
+import {
+    deleteById,
+    getAll,
+    saveForLater
+} from "./db";
+
 const base_url = 'https://api.football-data.org/v2/';
 const token = 'd9597e3d5e424937a5050d5c9ff30314';
 const id_liga = '2021';
@@ -7,11 +13,11 @@ const match_url = `${base_url}competitions/${id_liga}/matches`;
 
 const fetchApi = url => {
     return fetch(url, {
-        method: "get",
-        headers: {
-            'X-Auth-Token': token
-        }
-    })
+            method: "get",
+            headers: {
+                'X-Auth-Token': token
+            }
+        })
         .then(status)
         .then(json)
         .catch(error);
@@ -37,7 +43,7 @@ function error(error) {
 function addListener(data) {
     const element = document.getElementById(data.id);
     element.addEventListener('click', () => {
-        console.log(`Datanya mau diapain? : ${data.name}`)
+        saveForLater(data);
     })
 }
 
@@ -50,7 +56,9 @@ export default class api {
         tbTopS.innerHTML = preLoader;
         fetchApi(base_url + 'competitions/PL/scorers')
             .then((data) => {
-                const { scorers } = data;
+                const {
+                    scorers
+                } = data;
                 let result = `<thead>
                             <tr>
                                 <th>No</th>
@@ -68,10 +76,10 @@ export default class api {
                     // console.log(top);
                     result +=
                         `<tr>
-                    <td>`+ (index + 1) + `</td>
-                    <td>`+ (top['player']['name']) + `</td>
-                    <td>`+ (top['team']['name']) + `</td>
-                    <td>`+ (top['numberOfGoals']) + `</td>
+                    <td>` + (index + 1) + `</td>
+                    <td>` + (top['player']['name']) + `</td>
+                    <td>` + (top['team']['name']) + `</td>
+                    <td>` + (top['numberOfGoals']) + `</td>
                 </tr>`;
                 })
                 tbTopS.innerHTML = result;
@@ -86,7 +94,11 @@ export default class api {
         tbStand.innerHTML = preLoader;
         fetchApi(standing_url)
             .then((data) => {
-                const { standings: [{ table: clubs }] } = data;
+                const {
+                    standings: [{
+                        table: clubs
+                    }]
+                } = data;
                 let result = `<thead>
                             <tr>
                                 <th>Position</th>
@@ -109,16 +121,16 @@ export default class api {
                 clubs.forEach(items => {
                     result +=
                         `<tr>
-                    <td>`+ (items['position']) + `</td>
-                    <td>`+ (items['team']['name']) + `</td>
-                    <td>`+ (items['playedGames']) + `</td>
-                    <td>`+ (items['won']) + `</td>
-                    <td>`+ (items['draw']) + `</td>
-                    <td>`+ (items['lost']) + `</td>
-                    <td>`+ (items['goalsFor']) + `</td>
-                    <td>`+ (items['goalsAgainst']) + `</td>
-                    <td>`+ (items['goalDifference']) + `</td>
-                    <td>`+ (items['points']) + `</td>
+                    <td>` + (items['position']) + `</td>
+                    <td>` + (items['team']['name']) + `</td>
+                    <td>` + (items['playedGames']) + `</td>
+                    <td>` + (items['won']) + `</td>
+                    <td>` + (items['draw']) + `</td>
+                    <td>` + (items['lost']) + `</td>
+                    <td>` + (items['goalsFor']) + `</td>
+                    <td>` + (items['goalsAgainst']) + `</td>
+                    <td>` + (items['goalDifference']) + `</td>
+                    <td>` + (items['points']) + `</td>
                 </tr>`;
                 })
                 tbStand.innerHTML = result;
@@ -133,7 +145,9 @@ export default class api {
         card.innerHTML = preLoader;
         fetchApi(team_url)
             .then((data) => {
-                const { teams } = data;
+                const {
+                    teams
+                } = data;
                 let result = '';
 
                 teams.forEach((items) => {
@@ -141,19 +155,19 @@ export default class api {
                         `<div class="col s12 m4 l4">
                     <div class="card hoverable">
                         <div class="card-image">
-                            <img src="`+ (items.crestUrl) + `" alt="gambar" class="responsive-img">
+                            <img src="` + (items.crestUrl) + `" alt="gambar" class="responsive-img">
                             <a class="btn-floating halfway-fab waves-effect waves-light" id="${items.id}">
                             <i class="material-icons">add</i></a>
                         </div>
                         <div class="card-content">
-                            <span class="card-title brand-name center-align">`+ (items.name) + `</span>
+                            <span class="card-title brand-name center-align">` + (items.name) + `</span>
                             <h6>Address</h6>
-                            <p>`+ (items.address) + `</p>
+                            <p>` + (items.address) + `</p>
                             <h6>Founded</h6>
-                            <p>`+ (items.founded) + `</p>
+                            <p>` + (items.founded) + `</p>
                             <h6>Venue</h6>
-                            <p>`+ (items.venue) + `</p>
-                            <a href="`+ (items.website) + `">Link Website</a>
+                            <p>` + (items.venue) + `</p>
+                            <a href="` + (items.website) + `">Link Website</a>
                         </div>
                     </div>
                 </div>`;
@@ -178,23 +192,46 @@ export default class api {
         collaps.innerHTML = preLoader;
         fetchApi(match_url + '/?status=SCHEDULED&dateFrom=' + firstDay + '&dateTo=' + lastDay)
             .then((data) => {
-                const { matches } = data;
+                const {
+                    matches
+                } = data;
                 let result = '';
 
                 matches.forEach((items) => {
                     const utc = new Date(items['utcDate']);
-                    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+                    let options = {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    }
                     const date = utc.toLocaleDateString('en-US', options);
                     result +=
                         `<li>
-                    <div class="collapsible-header brand-name"><i class="material-icons">sports_soccer</i>`+ (items['awayTeam']['name']) + ` VS ` + (items['homeTeam']['name']) + `</div>
+                    <div class="collapsible-header brand-name"><i class="material-icons">sports_soccer</i>` + (items['awayTeam']['name']) + ` VS ` + (items['homeTeam']['name']) + `</div>
                     <div class="collapsible-body">
-                        <p class="flow-text"> Macthday `+ (items['matchday']) + `</p>
-                        <p class="flow-text"> Scheduled `+ (date) + `</p>
+                        <p class="flow-text"> Macthday ` + (items['matchday']) + `</p>
+                        <p class="flow-text"> Scheduled ` + (date) + `</p>
                     </div>
                 </li>`;
                 })
                 collaps.innerHTML = result;
             })
+    }
+
+    static getSavedTeam() {
+        getAll().then((data) => {
+            let html ='';
+            data.forEach(items => {
+                html += `<p>Ini team ${items.name}</p> 
+                <span id="${items.id}">Delete Team ?</span>`
+            })
+            document.getElementById('savedTeamList').innerHTML = html
+            data.forEach(items => {
+                document.getElementById(items.id).addEventListener('click', () => {
+                    deleteById(items.id);
+                })
+            })
+        })
     }
 }
