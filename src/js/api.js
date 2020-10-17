@@ -54,10 +54,9 @@ function savedTeam(data) {
             if (result.isConfirmed) {
                 tambah(data);
                 Swal.fire('Saved!', '', 'success');
-            }
-        }).then((result) => {
-            if (result.isConfirmed)
+                
             btn.style.display = 'none'
+            }
         })
     })
 }
