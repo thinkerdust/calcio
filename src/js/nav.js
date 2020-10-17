@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	M.Sidenav.init(sidebar);
 	loadNav();
 
-	function loadNav() {
+	function loadNav() 
+	{
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState === 4) {
@@ -47,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (page === '') page = 'home';
 	loadPage(page);
 
-	function loadPage(page) {
+	function loadPage(page) 
+	{
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState === 4) {

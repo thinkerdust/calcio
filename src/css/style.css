@@ -28,17 +28,13 @@ nav {
     color: #0278ae;
 }
 
-#cards-team .card-image {
+.card-image {
     height: 300px;
     /* overflow: hidden; */
 }
 
-#cards-team img {
+.card img {
     max-height: 300px;
-}
-
-#cards-team .card {
-    height: 630px;
 }
 
 .btn-floating {

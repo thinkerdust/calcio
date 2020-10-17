@@ -160,13 +160,6 @@ export default class api {
                         </div>
                         <div class="card-content">
                             <span class="card-title brand-name center-align"> ${items.name} </span>
-                            <h6>Address</h6>
-                            <p> ${items.address} </p>
-                            <h6>Founded</h6>
-                            <p> ${items.founded} </p>
-                            <h6>Venue</h6>
-                            <p> ${items.venue} </p>
-                            <a href="${items.website}">Link Website</a>
                         </div>
                     </div>
                 </div>`;           
@@ -218,16 +211,44 @@ export default class api {
                 html = 'Tidak ada team tersimpan';
             } else {
                 data.forEach(items => {
-                    html += `<p>Ini team ${items.name}</p> 
-                    <span id="${items.id}">Delete Team ?</span>`
+                    html += 
+                    `<div class="col s12 m4 l4">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="${items.crestUrl}" alt="gambar" class="responsive-img">
+                                <a class="btn-floating halfway-fab waves-effect waves-light red" id="${items.id}"><i class="material-icons">delete_forever</i></a>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title brand-name center-align"> ${items.name} </span>
+                                <h6>Address</h6>
+                                <p> ${items.address} </p>
+                                <h6>Founded</h6>
+                                <p> ${items.founded} </p>
+                                <h6>Venue</h6>
+                                <p> ${items.venue} </p>
+                                <a href="${items.website}">Link Website</a>
+                            </div>
+                        </div>
+                    </div>`;
                 })
             }
             document.getElementById('savedTeamList').innerHTML = html;
             if (data.length > 0) {
                 data.forEach(items => {
                     document.getElementById(items.id).addEventListener('click', () => {
-                        destroy(items.id)
-                        this.getSavedTeam()
+                        Swal.fire({
+                            text: 'Hapus Dari Daftar Favorit ?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                          }).then((result) => {
+                              if (result.isConfirmed) {
+                                    destroy(items.id);
+                                    Swal.fire('Deleted!', '', 'success').then(() => {
+                                        location.reload();
+                                    });
+                              }
+                          })
+                        this.getSavedTeam();
                     })
                 })
             }

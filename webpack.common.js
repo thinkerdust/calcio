@@ -38,7 +38,8 @@ module.exports = {
         }),
         new WorkboxPlugin.InjectManifest({
             swSrc: "./src/sw-register.js",
-            swDest: "service-worker.js"
+            swDest: "service-worker.js",
+            maximumFileSizeToCacheInBytes: 10000000,
         }),
         new WebpackPwaManifest({
             name: 'Calcio',
@@ -52,7 +53,7 @@ module.exports = {
             icons: [
               {
                 src: path.resolve('./src/img/icon.png'),
-                sizes: "512x512",
+                sizes: [96, 128, 144, 256, 384, 512],
                 purpose: 'maskable' 
               },
               {
