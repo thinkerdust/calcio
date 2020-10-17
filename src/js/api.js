@@ -210,4 +210,27 @@ export default class api {
             collaps.innerHTML = result;
         })
     }
+
+    static getSavedTeam() {
+        show().then((data) => {
+            let html = '';
+            if (data.length === 0) {
+                html = 'Tidak ada team tersimpan';
+            } else {
+                data.forEach(items => {
+                    html += `<p>Ini team ${items.name}</p> 
+                    <span id="${items.id}">Delete Team ?</span>`
+                })
+            }
+            document.getElementById('savedTeamList').innerHTML = html;
+            if (data.length > 0) {
+                data.forEach(items => {
+                    document.getElementById(items.id).addEventListener('click', () => {
+                        destroy(items.id)
+                        this.getSavedTeam()
+                    })
+                })
+            }
+        })
+    }
 }

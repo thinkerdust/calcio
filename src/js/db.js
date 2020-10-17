@@ -15,7 +15,7 @@ function tambah(teams) {
         const tx = db.transaction('teams', 'readwrite');
         const store = tx.objectStore('teams');
         console.log(teams);
-        store.put(teams); 
+        store.add(teams); 
         return tx.complete;
     }).then(function() {
         console.log('teams berhasil disimpan.')
@@ -32,20 +32,20 @@ function show() {
             const store = tx.objectStore("teams");
             return store.getAll();
         })
-        .then(function(articles) {
-            resolve(articles);
+        .then(function(teams) {
+            resolve(teams);
         });
     });
 }
 
-function destroy(teams) {
+function destroy(id) {
     dbPromised.then(function(db) {
         const tx = db.transaction('teams', 'readwrite');
         const store = tx.objectStore('teams');
-        store.delete(teams);
+        store.delete(parseInt(id));
         return tx.complete;
     }).then(function() {
-    console.log('Teams deleted');
+        console.log('Teams deleted');
     });
 }
 
