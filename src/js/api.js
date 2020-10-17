@@ -55,7 +55,8 @@ function savedTeam(data) {
                 tambah(data);
                 Swal.fire('Saved!', '', 'success');
             }
-        }).then(() => {
+        }).then((result) => {
+            if (result.isConfirmed)
             btn.style.display = 'none'
         })
     })
