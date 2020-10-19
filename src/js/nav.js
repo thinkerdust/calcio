@@ -1,8 +1,5 @@
 import main from './main';
 import api from './api';
-import goal from '../img/goal.png';
-import bgMatch from '../img/bg-2.jpg';
-import bgTeam from '../img/bg-4.jpg';
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -11,8 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	M.Sidenav.init(sidebar);
 	loadNav();
 
-	function loadNav() 
-	{
+	function loadNav() {
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState === 4) {
@@ -48,8 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (page === '') page = 'home';
 	loadPage(page);
 
-	function loadPage(page) 
-	{
+	function loadPage(page) {
 		let xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function () {
 			if (this.readyState === 4) {
@@ -57,20 +52,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				if (this.status === 200) {
 					content.innerHTML = xhttp.responseText;
 					if (page === 'home') {
-						main.imgCarousel();
 						main.initCarousell();
 						api.topScore();
 						api.getStanding();
-						document.querySelector('#goal').src = goal;
 					} else if (page === 'team') {
 						api.getTeam();
 						main.initParallax();
-						document.querySelector('#bg-team').src = bgTeam;
 					} else if (page === 'competition') {
 						api.getMatchOfMonth();
 						main.initCollapsible();
 						main.initParallax();
-						document.querySelector('#bg-match').src = bgMatch;
 					} else if (page === 'saved') {
 						api.getSavedTeam();
 					}
@@ -84,19 +75,4 @@ document.addEventListener('DOMContentLoaded', function () {
 		xhttp.open("GET", './src/pages/' + page + '.html', true);
 		xhttp.send();
 	}
-
-	if ('serviceWorker' in navigator) {
-		window.addEventListener('load', function() {
-		  navigator.serviceWorker.register('./src/service-worker.js')
-		  .then(function() {
-			console.log('Pendaftaran ServiceWorker berhasil');
-		  })
-		  .catch(function(){
-			console.log('Pendaftaran ServiceWorker gagal');
-		  });
-		})
-	} else {
-		console.log("ServiceWorker belum didukung browser ini.")
-	}
-
 });

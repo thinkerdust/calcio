@@ -1,0 +1,47 @@
+{
+    "name": "Calcio",
+    "short_name": "Calcio",
+    "description": "Football Premier League App",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#0278ae",
+    "theme_color": "#0278ae",
+    "icons": [
+        {
+            "src": "/src/img/icons/icon_96x96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/src/img/icons/icon_128x128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/src/img/icons/icon_144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/src/img/icons/icon_256x256.png",
+            "sizes": "256x256",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/src/img/icons/icon_384x384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/src/img/icons/icon_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
