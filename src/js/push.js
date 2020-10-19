@@ -7,7 +7,7 @@ const vapidKeys = {
   
   
  webPush.setVapidDetails(
-    'mailto:example@yourdomain.org',
+    'firebase-adminsdk-glnfa@calcio-pwa.iam.gserviceaccount.com',
     vapidKeys.publicKey,
     vapidKeys.privateKey
  )

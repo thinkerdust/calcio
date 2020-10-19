@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest')
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const SwWebpackPlugin = require('sw-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.js",
@@ -25,7 +25,10 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/i,
                 use: [
                     {
-                        loader: "file-loader"
+                        loader: "file-loader",
+                        options: {
+                            name: '[name].[ext]',
+                        },
                     }
                 ]
             }
@@ -36,10 +39,8 @@ module.exports = {
             template: "./src/index.html",
             filename: "index.html"
         }),
-        new WorkboxPlugin.InjectManifest({
-            swSrc: "./src/sw-register.js",
-            swDest: "service-worker.js",
-            maximumFileSizeToCacheInBytes: 10000000,
+        new SwWebpackPlugin({
+            entry: path.join(__dirname, "./src/service-worker.js"),
         }),
         new WebpackPwaManifest({
             name: 'Calcio',

@@ -1,30 +1,23 @@
 const CACHE_NAME = "pwa-2";
 
 let urlsToCache = [
-  "/",
-  "/manifest.json",
-  "./src/index.html",
-  "./src/index.js",
-  "./src/nav.html",
-  "./src/css/style.css",
-  "./src/img/apple-touch-icon.png",
-  "./src/img/bg-1.jpg",
-  "./src/img/bg-2.jpg",
-  "./src/img/bg-3.jpg",
-  "./src/img/bg-4.jpg",
-  "./src/img/goal.png",
-  "./src/img/icon.png",
-  "./src/js/api.js",
-  "./src/js/db.js",
-  "./src/js/main.js",
-  "./src/js/nav.js",
-  "./src/js/push.js",
-  "./src/pages/competition.html",
-  "./src/pages/home.html",
-  "./src/pages/saved.html",
-  "./src/pages/team.html",
-  "https://fonts.gstatic.com/s/comfortaa/v29/1Pt_g8LJRfWJmhDAuUsSQamb1W0lwk4S4WjMDr4fIA9c.woff2",
-  "https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"
+	"/",
+	"/manifest.json",
+	"/bundle.js",
+	"/index.html",
+	"/icon_96x96.png",
+	"/icon_128x128.png",
+	"/icon_144x144.png",
+	"/icon_192x192.png",
+	"/icon_256x256.png",
+	"/icon_384x384.png",
+	"/icon_512x512.png",
+	"/apple-touch-icon.png",
+	"/bg-1.jpg",
+	"/bg-2.jpg",
+	"/bg-3.jpg",
+	"/bg-4.jpg",
+	"/goal.png"
 ];
  
 self.addEventListener('install', function(event){
