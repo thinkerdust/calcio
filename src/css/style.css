@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Comfortaa', cursive;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+/* Color Pallete 
+    0f3057
+    00587a
+    008891
+    0278ae
+    51adcf
+    7579e7
+    070d59
+*/
+nav {
+    background-color: #0278ae;
+}
+
+.brand-name {
+    color: #0278ae;
+}
+
+.card-image {
+    height: 300px;
+    /* overflow: hidden; */
+}
+
+.card img {
+    max-height: 300px;
+}
+
+.btn-floating {
+    background-color: #0278ae;
+}
+
+.btn-floating:hover {
+    background-color: #070d59;
+}
+
+.progress {
+    background-color: darkblue;
+}
+
+
+.progress .indeterminate {
+    background-color: steelblue;
+}
+
+.footer-copyright {
+    background: #0278ae;
+    padding: 26px 0;
+    color: #fff;
+    font-size: 15px;
+}
