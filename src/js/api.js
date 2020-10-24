@@ -63,7 +63,7 @@ function savedTeam(data) {
 
 export default class api {
     static topScore() {
-        const tbTopS = document.querySelector('#top-scorer');
+        const tbTopS = document.querySelector('#topscorer');
         const preLoader = `<div class="progress">
                                 <div class="indeterminate"></div>
                             </div>`;
@@ -73,7 +73,8 @@ export default class api {
                 const {
                     scorers
                 } = data;
-                let result = `<thead>
+                let result = `<table class="highlight">
+                        <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Player</th>
@@ -90,18 +91,19 @@ export default class api {
                     // console.log(top);
                     result +=
                         `<tr>
-                    <td> ${index+1} </td>
-                    <td> ${top['player']['name']}</td>
-                    <td> ${top['team']['name']} </td>
-                    <td> ${top['numberOfGoals']} </td>
-                </tr>`;
+                            <td> ${index+1} </td>
+                            <td> ${top['player']['name']}</td>
+                            <td> ${top['team']['name']} </td>
+                            <td> ${top['numberOfGoals']} </td>
+                        </tr>`;
                 })
+                result += `</table>`;
                 tbTopS.innerHTML = result;
             })
     }
 
     static getStanding() {
-        const tbStand = document.querySelector('#tb-standings');
+        const tbStand = document.querySelector('#standings');
         const preLoader = `<div class="progress">
                                 <div class="indeterminate"></div>
                             </div>`;
@@ -113,7 +115,8 @@ export default class api {
                         table: clubs
                     }]
                 } = data;
-                let result = `<thead>
+                let result = `<table class="highlight">
+                        <thead>
                             <tr>
                                 <th>Position</th>
                                 <th>Club</th>
@@ -132,15 +135,16 @@ export default class api {
                 clubs.forEach(items => {
                     result +=
                         `<tr>
-                    <td>` + (items['position']) + `</td>
-                    <td>` + (items['team']['name']) + `</td>
-                    <td>` + (items['playedGames']) + `</td>
-                    <td>` + (items['won']) + `</td>
-                    <td>` + (items['draw']) + `</td>
-                    <td>` + (items['lost']) + `</td>
-                    <td>` + (items['points']) + `</td>
-                </tr>`;
+                            <td>` + (items['position']) + `</td>
+                            <td>` + (items['team']['name']) + `</td>
+                            <td>` + (items['playedGames']) + `</td>
+                            <td>` + (items['won']) + `</td>
+                            <td>` + (items['draw']) + `</td>
+                            <td>` + (items['lost']) + `</td>
+                            <td>` + (items['points']) + `</td>
+                        </tr>`;
                 })
+                result += `</table>`;
                 tbStand.innerHTML = result;
             })
     }
@@ -161,16 +165,16 @@ export default class api {
                 teams.forEach((items) => {
                     result +=
                         `<div class="col s12 m4 l4">
-                    <div class="card hoverable">
-                        <div class="card-image">
-                            <img src="${items.crestUrl}" alt="gambar" class="responsive-img">
-                            <a class="btn-floating halfway-fab waves-effect waves-light" id="${items.id}"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title brand-name center-align"> ${items.name} </span>
-                        </div>
-                    </div>
-                </div>`;
+                            <div class="card hoverable">
+                                <div class="card-image">
+                                    <img src="${items.crestUrl}" alt="gambar" class="responsive-img">
+                                    <a class="btn-floating halfway-fab waves-effect waves-light" id="${items.id}"><i class="material-icons">add</i></a>
+                                </div>
+                                <div class="card-content">
+                                    <span class="card-title brand-name center-align"> ${items.name} </span>
+                                </div>
+                            </div>
+                        </div>`;
                 })
                 card.innerHTML = result;
                 teams.forEach((items) => {
@@ -215,12 +219,12 @@ export default class api {
                     const date = utc.toLocaleDateString('en-US', options);
                     result +=
                         `<li>
-                    <div class="collapsible-header brand-name"><i class="material-icons">sports_soccer</i>` + (items['awayTeam']['name']) + ` VS ` + (items['homeTeam']['name']) + `</div>
-                    <div class="collapsible-body">
-                        <p class="flow-text"> Macthday ` + (items['matchday']) + `</p>
-                        <p class="flow-text"> Scheduled ` + (date) + `</p>
-                    </div>
-                </li>`;
+                            <div class="collapsible-header brand-name"><i class="material-icons">sports_soccer</i>` + (items['awayTeam']['name']) + ` VS ` + (items['homeTeam']['name']) + `</div>
+                            <div class="collapsible-body">
+                                <p class="flow-text"> Macthday ` + (items['matchday']) + `</p>
+                                <p class="flow-text"> Scheduled ` + (date) + `</p>
+                            </div>
+                        </li>`;
                 })
                 collaps.innerHTML = result;
             })
