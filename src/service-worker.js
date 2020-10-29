@@ -1,68 +1,43 @@
-const {
-	assets
-} = global.serviceWorkerOption
+import { precacheAndRoute } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
+// import { ExpirationPlugin } from "workbox-expiration";
 
-const CACHE_NAME = new Date().toISOString()
+precacheAndRoute(self.__WB_MANIFEST || [], {ignoreURLParametersMatching: [/.*/]});
 
-let assetsToCache = [
-	...assets,
-	"/",
-]
+registerRoute(
+	/\.(?:css|js|png|jpg|svg|gif)$/,
+	new CacheFirst({
+		cacheName: "assets-cache",
+	})
+);
 
-console.log(assets)
+// caching API
+registerRoute(
+	/^https:\/\/api\.football-data\.org/,
+	new StaleWhileRevalidate({
+		cacheName: "api-chace",
+	})
+);
 
-assetsToCache = assetsToCache.map(path => {
-	return new URL(path, global.location).toString()
-})
-
-self.addEventListener('install', function (event) {
-	event.waitUntil(
-		caches.open(CACHE_NAME)
-		.then(function (cache) {
-			return cache.addAll(assetsToCache);
-		})
-	);
-})
-
-self.addEventListener('activate', function (event) {
-	event.waitUntil(
-		caches.keys()
-		.then(function (cacheNames) {
-			return Promise.all(
-				cacheNames.map(function (cacheName) {
-					if (cacheName != CACHE_NAME) {
-						console.log("ServiceWorker: cache " + cacheName + " dihapus");
-						return caches.delete(cacheName);
-					}
-				})
-			);
-		})
-	);
-})
-
-self.addEventListener('fetch', function (event) {
-	event.respondWith(
-		caches.open(CACHE_NAME).then(function (cache) {
-			return cache.match(event.request).then(function (response) {
-				return response || fetch(event.request).then(function (response) {
-					cache.put(event.request, response.clone());
-					return response;
-				});
-			});
-		})
-	);
-});
+// caching google font/icon
+registerRoute(
+	/^https:\/\/fonts\.googleapis\.com/,
+	new StaleWhileRevalidate({
+		cacheName: "assets-cache",
+	})
+);
 
 self.addEventListener('push', function(event) {
-	var body;
+	let body;
 	if (event.data) {
 	  body = event.data.text();
 	} else {
 	  body = 'Push message no payload';
 	}
-	var options = {
+	let options = {
 	  body: body,
-	  icon: './img/icons/icon_96x96.png',
+	  icon: './src/img/icons/icon_96x96.png',
 	  vibrate: [100, 50, 100],
 	  data: {
 		dateOfArrival: Date.now(),
@@ -72,4 +47,4 @@ self.addEventListener('push', function(event) {
 	event.waitUntil(
 	  self.registration.showNotification('Push Notification', options)
 	);
-  });
+});

@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.js",
@@ -68,8 +68,10 @@ module.exports = {
             template: "./src/pages/team.html",
             filename: "/src/pages/team.html"
         }),
-        new ServiceWorkerWebpackPlugin({
-            entry: path.join(__dirname, "./src/service-worker.js"),
-        }),
+        new WorkboxPlugin.InjectManifest({
+            maximumFileSizeToCacheInBytes: 5000000,
+            swSrc: path.join(process.cwd(), "./src/service-worker.js"),
+            swDest: "sw.js"
+        })
     ]
 };

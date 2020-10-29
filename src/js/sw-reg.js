@@ -1,5 +1,3 @@
-import runtime from "serviceworker-webpack-plugin/lib/runtime";
-
 if (!("serviceWorker" in navigator)) {
   console.log("Service worker tidak didukung browser ini.");
 } else {
@@ -7,10 +5,8 @@ if (!("serviceWorker" in navigator)) {
   requestPermission();
 }
 
-
 function registerServiceWorker() {
-  return runtime
-    .register()
+  return navigator.serviceWorker.register('./src/service-worker.js')
     .then((registration) => {
       console.log("Registrasi service worker berhasil.");
       return registration;
