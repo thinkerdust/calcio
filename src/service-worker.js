@@ -11,7 +11,7 @@ import {
 // import { ExpirationPlugin } from "workbox-expiration";
 //self.__WB_MANIFEST
 
-precacheAndRoute([{
+precacheAndRoute(self.__WB_MANIFEST || [{
 		url: '/index.html',
 		revision: '1'
 	},
