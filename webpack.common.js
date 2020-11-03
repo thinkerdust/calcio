@@ -50,23 +50,23 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: "./src/nav.html",
-            filename: "/src/nav.html"
+            filename: "src/nav.html"
         }),
         new HtmlWebpackPlugin({
             template: "./src/pages/home.html",
-            filename: "/src/pages/home.html"
+            filename: "src/pages/home.html"
         }),
         new HtmlWebpackPlugin({
             template: "./src/pages/competition.html",
-            filename: "/src/pages/competition.html"
+            filename: "src/pages/competition.html"
         }),
         new HtmlWebpackPlugin({
             template: "./src/pages/saved.html",
-            filename: "/src/pages/saved.html"
+            filename: "src/pages/saved.html"
         }),
         new HtmlWebpackPlugin({
             template: "./src/pages/team.html",
-            filename: "/src/pages/team.html"
+            filename: "src/pages/team.html"
         }),
         new workboxPlugin.InjectManifest({
             swSrc: "./src/service-worker.js",
