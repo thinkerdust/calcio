@@ -1,0 +1,5 @@
+[Link Hosting Firebase]
+https://calcio-premier-league.web.app/
+[Link Repository Github]
+https://github.com/thinkerdust/calcio.git
+->branch master
